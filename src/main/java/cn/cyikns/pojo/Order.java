@@ -12,6 +12,15 @@ public class Order implements Serializable {
     private String shoppingName;
     private int status;
 
+    private User user;
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 
     public int getId() {
         return id;
@@ -43,5 +52,17 @@ public class Order implements Serializable {
 
     public void setStatus(int status) {
         this.status = status;
+    }
+
+
+    @Override
+    public String toString() {
+        return "Order{" +
+                "id=" + id +
+                ", userId=" + userId +
+                ", shoppingName='" + shoppingName + '\'' +
+                ", status=" + status +
+                ", user=" + user +
+                '}';
     }
 }

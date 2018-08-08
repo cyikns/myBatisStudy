@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.cyikns.mapper.OrderMapper">
+
+    <resultMap id="order" type="Order">
+
+        <!-- 定义主键 ,非常重要。如果是多个字段,则定义多个id -->
+        <!-- property：主键在pojo中的属性名 -->
+        <!-- column：主键在数据库中的列名 -->
+        <id column="id" property="id"/>
+
+        <result column="user_id" property="userId"/>
+        <result column="shopping_name" property="shoppingName"/>
+    </resultMap>
+    <select id="queryOrderAll" resultMap="order">
+        select * from tb_order
+    </select>
+
+    <select id="queryAllOrders" resultType="orderUser" timeout="5000">
+        select
+            o.id,
+            o.user_id,
+            u.username,
+            o.shopping_name,
+            u.address
+        from
+            tb_order o
+        left join
+            tb_user u
+        on
+            o.user_id = u.id
+    </select>
+
+    <resultMap id="orderUserResultMap" type="Order">
+        <id property="id" column="id"/>
+        <result column="user_id" property="userId"/>
+        <result column="shopping_name" property="shoppingName"/>
+
+        <!-- association ：配置一对一属性 -->
+        <!-- property:order里面的User属性名 -->
+        <!-- javaType:属性类型 -->
+        <association property="user" javaType="user">
+            <!-- id:声明主键，表示user_id是关联查询对象的唯一标识-->
+            <id column="user_id" property="id"/>
+            <result property="username" column="username"/>
+            <result property="address" column="address"/>
+        </association>
+    </resultMap>
+
+    <select id="queryOrderUseResultMap1" resultMap="orderUserResultMap" timeout="5000">
+        select
+            o.id,
+            o.user_id,
+            u.username,
+            o.shopping_name,
+            u.address
+        from
+            tb_order o
+        left join
+            tb_user u
+        on
+            o.user_id = u.id
+    </select>
+</mapper>

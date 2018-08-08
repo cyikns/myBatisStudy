@@ -1,6 +1,7 @@
 package cn.cyikns.pojo;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * @author cyikns
@@ -12,6 +13,17 @@ public class User implements Serializable {
     private String username;
     private String password;
     private String address;
+
+
+    private List<Order> orders;
+
+    public List<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<Order> orders) {
+        this.orders = orders;
+    }
 
     public int getId() {
         return id;
@@ -52,6 +64,7 @@ public class User implements Serializable {
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", address='" + address + '\'' +
+                ", orders=" + orders +
                 '}';
     }
 }

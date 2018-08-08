@@ -4,9 +4,12 @@
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
     <properties resource="db.properties"/>
-    <!--<typeAliases>-->
-    <!--<package name="cn.cyikns.pojo"/>-->
-    <!--</typeAliases>-->
+    <typeAliases>
+        <!--单个别名定义-->
+        <!--<typeAlias type="User" alias="cn.cyikns.pojo.User"/>-->
+        <!-- 批量别名定义，扫描整个包下的类，别名为类名（大小写不敏感） -->
+        <package name="cn.cyikns.pojo"/>
+    </typeAliases>
     <environments default="development">
         <environment id="development">
             <transactionManager type="JDBC"/>
