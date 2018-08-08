@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace：命名空间，用于隔离sql，还有一个很重要的作用，即服务于动态代理开发，填上包名 -->
+<mapper namespace="cn.cyikns.mapper.UserMapper">
+
+    <select id="selectUserById" parameterType="int" resultType="cn.cyikns.pojo.User">
+      select * from tb_user where id = #{id}
+    </select>
+
+    <select id="queryUser" parameterType="String" resultType="cn.cyikns.pojo.User">
+      select * from tb_user where username like "%"#{values}"%"
+    </select>
+
+    <update id="updateUserById" parameterType="cn.cyikns.pojo.User">
+        update tb_user set username = #{username},password = #{password},address = #{address} where id = #{id}
+    </update>
+
+    <delete id="delUserById" parameterType="int" timeout="5000">
+        delete from tb_user where id = #{id}
+    </delete>
+
+    <insert id="addUser" parameterType="cn.cyikns.pojo.User" timeout="5000">
+        <selectKey keyColumn="id" keyProperty="id" order="AFTER" resultType="int">
+            select LAST_INSERT_ID()
+        </selectKey>
+        insert into tb_user(username, password, address) values (#{username},#{password},#{address})
+    </insert>
+</mapper>
